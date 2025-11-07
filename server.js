@@ -5,9 +5,11 @@ const PORT = process.env.PORT || 3000;
 
 // middleware logger
 app.use((req, res, next) => {
-  console.log(`${req.method} ${req.path} - ${req.ip}`);
-  next(); // important so the server does not get freeze
+  const now = new Date().toISOString(); // fecha y hora en formato ISO
+  console.log(`${req.method} ${req.path} - ${req.ip} [${now}]`);
+  next();
 });
+
 
 // optional root route
 app.get("/", (req, res) => {
