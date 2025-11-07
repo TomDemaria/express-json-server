@@ -15,6 +15,13 @@ app.get('/:word/echo', (req, res) => {
   res.json({ echo: word });
 });
 
+// Route to handle GET /name with query parameters
+app.get('/name', (req, res) => {
+  const first = req.query.first || '';
+  const last = req.query.last || '';
+  const fullName = `${first} ${last}`;
+  res.json({ name: fullName });
+});
 
 
 // optional root route
