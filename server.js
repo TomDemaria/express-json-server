@@ -1,7 +1,11 @@
 require('dotenv').config();
+const bodyParser = require('body-parser');
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
 
 // middleware logger
 app.use((req, res, next) => {
@@ -9,20 +13,6 @@ app.use((req, res, next) => {
   console.log(`${req.method} ${req.path} - ${req.ip} [${now}]`);
   next();
 });
-// Echo route
-app.get('/:word/echo', (req, res) => {
-  const word = req.params.word;
-  res.json({ echo: word });
-});
-
-// Route to handle GET /name with query parameters
-app.get('/name', (req, res) => {
-  const first = req.query.first || '';
-  const last = req.query.last || '';
-  const fullName = `${first} ${last}`;
-  res.json({ name: fullName });
-});
-
 
 // optional root route
 app.get("/", (req, res) => {
@@ -39,6 +29,25 @@ app.get('/json', (req, res) => {
 
   res.json(response);
 });
+
+// Echo route
+app.get('/:word/echo', (req, res) => {
+  const word = req.params.word;
+  res.json({ echo: word });
+});
+
+// ruta GET y POST para /name
+app.route("/name")
+  .get((req, res) => {
+    const first = req.query.first || '';
+    const last = req.query.last || '';
+    res.json({ name: `${first} ${last}` });
+  })
+  .post((req, res) => {
+    const first = req.body.first || '';
+    const last = req.body.last || '';
+    res.json({ name: `${first} ${last}` });
+  });
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
