@@ -3,6 +3,11 @@ const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// middleware logger
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path} - ${req.ip}`);
+  next(); // important so the server does not get freeze
+});
 
 // optional root route
 app.get("/", (req, res) => {
@@ -19,7 +24,6 @@ app.get('/json', (req, res) => {
 
   res.json(response);
 });
-
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
