@@ -10,9 +10,16 @@ app.get("/", (req, res) => {
 });
 
 // json route for the object
-app.get("/json", (req, res) => {
-  res.json({ message: "Hello json" });
+app.get('/json', (req, res) => {
+  let response = { message: 'Hello json' };
+
+  if (process.env.MESSAGE_STYLE === 'uppercase') {
+    response.message = response.message.toUpperCase();
+  }
+
+  res.json(response);
 });
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
