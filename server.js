@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
+require('dotenv').config();
+
 
 // optional root route
 app.get("/", (req, res) => {
