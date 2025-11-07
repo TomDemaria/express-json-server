@@ -49,6 +49,11 @@ app.route("/name")
     res.json({ name: `${first} ${last}` });
   });
 
+app.get('/test-post', (req, res) => {
+  res.sendFile(__dirname + '/views/test-post.html');
+});
+
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
