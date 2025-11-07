@@ -9,6 +9,12 @@ app.use((req, res, next) => {
   console.log(`${req.method} ${req.path} - ${req.ip} [${now}]`);
   next();
 });
+// Echo route
+app.get('/:word/echo', (req, res) => {
+  const word = req.params.word;
+  res.json({ echo: word });
+});
+
 
 
 // optional root route
